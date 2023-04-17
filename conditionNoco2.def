@@ -1,0 +1,36 @@
+DESCRIPTION
+
+PREDICTOR
+t               T   cycles       time	0 18.2208
+
+INPUTS
+
+
+OBSERVABLES
+p21_obs      F   norm.     RFU   0  0  "offset_p21+p21"
+Cd_obs       F   norm.     RFU   0  0  "offset_Cd+Cd"
+RBi_obs      F   norm.     RFU   0  0  "offset_RBi+RBi"
+Ce_obs       F   norm.     RFU   0  0  "offset_Ce+Ce"
+Ca_obs       F   norm.     RFU   0  0  "offset_Ca+Ca"
+Cb_obs       F   norm.     RFU   0  0  "offset_Cb+Cb"
+
+ERRORS
+p21_obs      "sd_p21"
+Cd_obs       "sd_Cd"
+RBi_obs      "sd_RBi"
+Ce_obs       "sd_Ce"
+Ca_obs       "sd_Ca"
+Cb_obs       "sd_Cb"
+
+CONDITIONS
+init_p21     "0.197612732-offset_p21"
+init_Cd      "0.245203556-offset_Cd"
+init_E2F     "initE2F_G2*E2Ft"
+init_RBi      "0.749311159-offset_RBi"
+init_Ce      "0.579682638-offset_Ce"
+init_Ca      "0.657394641-offset_Ca"
+init_Cb      "0.496751243-offset_Cb"
+init_mCa     "init_mCa_G2"
+init_mCb     "init_mCb_G2"
+init_mCd     "init_mCd_G2"
+init_mCe     "init_mCe_G2"
