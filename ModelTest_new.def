@@ -1,0 +1,127 @@
+DESCRIPTION
+"Cell Cycle Model for Breast Cancer Cells"
+
+PREDICTOR
+t               T   cycles       time	0	18.2208
+
+COMPARTMENTS
+Compartment1	 V	 "n/a"	 vol.	 1
+
+STATES
+p21      F   RFU     norm.   Compartment1  1  "p21"
+mCd      F   RFU     norm.   Compartment1  1  "mCd"
+Cd       F   RFU     norm.   Compartment1  1  "Cd"
+E2F      F   RFU     norm.   Compartment1  1  "E2F"
+RBi      F   RFU     norm.   Compartment1  1  "RBi"
+mCe      F   RFU     norm.   Compartment1  1  "mCe"
+Ce       F   RFU     norm.   Compartment1  1  "Ce"
+mCa      F   RFU     norm.   Compartment1  1  "mCa"
+Ca       F   RFU     norm.   Compartment1  1  "Ca"
+mCb      F   RFU     norm.   Compartment1  1  "mCb"
+Cb       F   RFU     norm.   Compartment1  1  "Cb"
+
+INPUTS
+noco  X   C           norm.    "nocodazole" 
+palbo X   C           norm.    "palbociclib"
+
+ODES
+"Vsp*E2F*(ks/(ks+(RBt-RBi)))*(kp21iv/(kp21iv+p21))+Vspa*(Ca*(kp21ii/(kp21ii+p21))/(kspa+Ca*(kp21ii/(kp21ii+p21))))+Vspb*(Cb*(kp21iii/(kp21iii+p21))/(Cb*(kp21iii/(kp21iii+p21))+kspb))-(Vdpe*Ce*(kp21i/(kp21i+p21))+Vdpa*Ca*(kp21ii/(kp21ii+p21)))*(p21/(kdp+p21))"
+"Vmsd*1*E2F*(ks/(ks+(RBt-RBi)))*(kp21iv/(kp21iv+p21))-Vmdd*mCd"
+"Vsd*mCd-Vdd*(Cd/(kdd+Cd))"
+"Vsef*((E2Ft-E2F)/(ksef+(E2Ft-E2F)))-Vdef*(E2F/(kdef+E2F))*Ca*(kp21ii/(kp21ii+p21))"
+"Vsrb*((RBt-RBi)/(ksrb+(RBt-RBi)))*(Cd*(1/(1+palbo*ICp))*Ce*(kp21i/(kp21i+p21)))-Vdrb*(RBi/(kdrb+RBi))"
+"Vmse*E2F*(ks/(ks+(RBt-RBi)))*(kp21iv/(kp21iv+p21))-Vmde*mCe"
+"Vse*mCe-Vde*(Ce/(kde+Ce))*Ca*(kp21ii/(kp21ii+p21))"
+"Vmsa*E2F*(ks/(ks+(RBt-RBi)))*(kp21iv/(kp21iv+p21))-Vmda*mCa"
+"Vsa*mCa-Vda*(Ca/(kda+Ca))*Cb*(kp21iii/(kp21iii+p21))"
+"Vmsb*Ca*(kp21ii/(kp21ii+p21))-Vmdb*mCb"
+"Vsb*mCb-Vdb*(Cb/(kdb+Cb))*Cb*(kp21iii/(kp21iii+p21))*(1/(1+noco*ICn))"
+
+DERIVED
+
+OBSERVABLES
+p21_obs      F   norm.     RFU   0  0  "offset_p21+p21"
+Cd_obs       F   norm.     RFU   0  0  "offset_Cd+Cd"
+RBi_obs      F   norm.     RFU   0  0  "offset_RBi+RBi"
+Ce_obs       F   norm.     RFU   0  0  "offset_Ce+Ce"
+Ca_obs       F   norm.     RFU   0  0  "offset_Ca+Ca"
+Cb_obs       F   norm.     RFU   0  0  "offset_Cb+Cb"
+
+ERRORS
+p21_obs      "sd_p21"
+Cd_obs       "sd_Cd"
+RBi_obs      "sd_RBi"
+Ce_obs       "sd_Ce"
+Ca_obs       "sd_Ca"
+Cb_obs       "sd_Cb"
+
+CONDITIONS
+
+PARAMETERS
+ E2Ft       	0.2214	1	1	-3	3
+ ICn        	0	1	1	-3	3
+ ICp        	-0.9555	1	1	-3	3
+ RBt        	1.9141	1	1	-0.11	3
+ Vda        	-0.4312	1	1	-3	3
+ Vdb        	0.0675	1	1	-3	3
+ Vdd        	1.1756	1	1	-3	3
+ Vde        	0.5591	1	1	-3	3
+ Vdef       	1.6428	1	1	-3	3
+ Vdpa       	0.0216	1	1	-3	3
+ Vdpe       	0.0321	1	1	-3	3
+ Vdrb       	0.7692	1	1	-3	3
+ Vmda       	-0.2817	1	1	-3	3
+ Vmdb       	0.0173	1	1	-3	3
+ Vmdd       	-1.2085	1	1	-3	3
+ Vmde       	-0.0539	1	1	-3	3
+ Vmsa       	-0.2719	1	1	-3	3
+ Vmsb       	0.331	1	1	-3	3
+ Vmsd       	-0.2664	1	1	-3	3
+ Vmse       	-0.0208	1	1	-3	3
+ Vsa        	-0.1179	1	1	-3	3
+ Vsb        	0.4735	1	1	-3	3
+ Vsd        	0.746	1	1	-3	3
+ Vse        	0.2375	1	1	-3	3
+ Vsef       	0.0916	1	1	-3	3
+ Vsp        	0.2172	1	1	-3	3
+ Vspa       	-0.7873	1	1	-3	3
+ Vspb       	-0.9827	1	1	-3	3
+ Vsrb       	2.2838	1	1	-3	3
+ initE2F_G1 	0.4318	1	0	0	1
+ initE2F_G2	1	1	0	0	1
+ init_mCa   	0.1691	1	0	0	1
+ init_mCa_G2	0.0793	1	0	0	1
+ init_mCb   	0.1254	1	0	0	1
+ init_mCb_G2	0.1187	1	0	0	1
+ init_mCd   	0.4668	1	0	0	1
+ init_mCd_G2   	0.4836	1	0	0	1
+ init_mCe   	0.2335	1	0	0	1
+ init_mCe_G2  	0.0698	1	0	0	1
+ kda        	-1.7202	1	1	-3	3
+ kdb        	-1.8466	1	1	-3	3
+ kdd        	0.2276	1	1	-3	3
+ kde        	-1.5726	1	1	-3	3
+ kdef       	-1.4585	1	1	-3	3
+ kdp        	-1.1623	1	1	-3	3
+ kdrb       	-3	1	1	-5	3
+ kp21i      	-1.1364	1	1	-3	3
+ kp21ii     	-0.2432	1	1	-3	3
+ kp21iii    	1.8092	1	1	-3	3
+ kp21iv     	-1.054	1	1	-3	3
+ ks         	1.9655	1	1	-3	3
+ ksef       	-0.8047	1	1	-3	3
+ kspa       	0.7398	1	1	-3	3
+ kspb       	0.4209	1	1	-3	3
+ ksrb       	-1.624	1	1	-3	3
+ offset_Ca  	0.5711	1	0	0	0.68
+ offset_Cb  	0.081	1	0	0	0.25
+ offset_Cd  	0	1	0	0	0.39
+ offset_Ce  	0.2927	1	0	0	0.83
+ offset_RBi 	0.3646	1	0	0	0.4
+ offset_p21 	0.0194	1	0	0	0.48
+ sd_Ca      	-2	1	1	-3	0
+ sd_Cb      	-2	1	1	-3	0
+ sd_Cd      	-2	1	1	-3	0
+ sd_Ce      	-2	1	1	-3	0
+ sd_RBi     	-2	1	1	-3	0
+ sd_p21     	-2	1	1	-3	0
